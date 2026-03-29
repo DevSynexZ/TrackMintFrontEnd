@@ -15,7 +15,7 @@ export default function Header() {
 
       {/* User Info */}
       <div className="user-info">
-        <div>Welcome, {currentUser?.name || "USER"}</div>
+       <div>Welcome, {currentUser?.fullName || currentUser?.name || "User"}</div>
         <div>Balance: ৳{currentUser.currentBalance?.toFixed(0) || 0}</div>
       </div>
     </div>
