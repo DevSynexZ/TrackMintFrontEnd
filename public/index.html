@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piggy Tracker</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FullCalendar CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="../styles/style.css" />
+  </head>
+  <body>
+    <!-- React mounts everything here -->
+    
+      <!-- ================= SIDEBAR ================= -->
+<div id="sidebar" >
+    <div id="profile">
+        <img src="https://via.placeholder.com/60" id="profilePic">
+        <div id="profileName">User</div>
+      
+    </div>
+      <!-- <div id="avatar">Choose Avater
+        <img src="images/415493791_1334382214625200_7283723641722431584_n.jpg" alt="">
+        <img src="images/ACRSPSC03MasyafDiscovery_80583812107_31221.webp" alt="">
+        <img src="images/Assassins-Creed-Wallpapers-HD.jpg" alt="">
+        <img src="images/wallpapersden.com_assassin-s-creed-hd_1920x1080.jpg" alt="">
+      </div> -->
+    <button class="sidebarBtn" onclick="logout()">Logout</button>
+    <button class="sidebarBtn" onclick="closeSidebar()">Close</button>
+</div>
+
+<div id="overlay" onclick="closeSidebar()"></div>
+<button id="sidebarToggle" onclick="openSidebar()" style="display: none;">☰</button>
+
+<!-- ================= LOGIN PAGE ================= -->
+<div id="loginPage">
+     <img src="images/Screenshot 2026-01-09 203419.png" alt="">
+    <h1>Piggy Tracker</h1>
+
+    <input type="text" id="name" placeholder="Full Name (first time only)">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="pin" placeholder="PIN">
+
+    <div id="loginMessage" class="message"></div>
+
+    <button class="primaryBtn" onclick="login()">Login / Register</button>
+</div>
+<div id="header1" class="logo"  >
+    <img src="images/Screenshot 2026-01-09 203419.png" alt="">
+    <h2 class="gradient-text">Piggy Tracker</h2>
+
+</div>
+
+<!-- ================= MAIN APP ================= -->
+<div id="appContainer" >
+    
+
+   
+
+    <div id="mainContent">
+
+        <!-- ========== LEFT PANEL ========== -->
+        <div id="leftPanel">
+             <!-- HEADER -->
+    <div id="header">
+        <h2 id="welcomeUser">Welcome</h2>
+        <div id="balanceBox">
+            Balance: <span id="balanceDisplay">0.00</span>
+        </div>
+    </div>
+
+            <!-- ===== PICK TRACKING START DATE ===== -->
+            <div class="panel">
+                <h3>Pick Tracking Start Date</h3>
+                <div class="inputRow">
+                    <input type="date" id="avgStartDate">
+                    <button class="primaryBtn" onclick="setTrackingStart()">Set</button>
+                </div>
+                <div id="trackStartDiv" style="margin-top:10px; font-weight:500;"></div>
+            </div>
+
+              
+            
+            <div class="panel">
+                <h3>Calendar</h3>
+             <div class="table-wrapper">
+                <div id="fullCalendar"></div>
+             </div>
+  
+
+            </div>
+        
+
+
+
+            <!-- ADD MONEY -->
+            <div class="panel">
+                <h3>Add Balance</h3>
+                <div class="inputRow">
+                    <input type="number" id="moneyInput" placeholder="Amount">
+                    <input type="date" id="entryDate">
+                    <button type="button" class="primaryBtn" onclick="addMoney()">Add</button>
+                    <button class="resetBtn" onclick="resetData()">Reset</button>
+                </div>
+            </div>
+
+            <!-- ADD EXPENSE -->
+            <div class="panel">
+                <h3>Add Expense</h3>
+                <div class="inputRow">
+                    <input type="number" id="expenseAmount" placeholder="Amount">
+                    <select id="categorySelect">
+                        <option>Grocery</option>
+    <option>Meal</option>
+    <option>University</option>
+    <option>Personal</option>
+    <option>Family</option>
+    <option>Electricity Bill</option>
+    <option>House Rent</option>
+    <option>Wifi Bill</option>
+    <option>Maid</option>
+    <option>Recharge</option>
+                    </select>
+                    <input type="date" id="expenseDate">
+                    <button type="button" class="primaryBtn" onclick="addExpense()">Add</button>
+                </div>
+
+                <!-- SUMMARY TABLE -->
+                <table id="expenseTable">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Total</th>
+                            <th>Weekly Avg</th>
+                            <th>Monthly Avg</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- EXPENSE HISTORY -->
+            <div class="panel">
+                <h3>Recent Expenses</h3>
+<div class="table-scroll">
+    <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+
+</div>
+                
+                
+                <div class="history-controls">
+  <button id="toggleHistoryBtn">Show all</button>
+</div>
+            </div>
+
+            <!-- BORROW / LEND -->
+            <div class="panel">
+                <h3>Borrow / Lend</h3>
+                <div class="inputRow">
+                    <input type="text" id="blName" placeholder="Name">
+                    <input type="number" id="blAmount" placeholder="Amount">
+                    <select id="blType">
+                        <option value="borrow">Borrow (+)</option>
+                        <option value="lend">Lend (-)</option>
+                    </select>
+                    <input type="date" id="blDate">
+                    <button type = "button" class="primaryBtn" onclick="addBorrowLend()">Add</button>
+                </div>
+
+<div class="table-scroll">
+
+  <table id="blTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+</div>
+
+              
+            </div>
+
+             
+
+        </div>
+
+        <!-- ========== RIGHT PANEL ========== -->
+     
+
+    </div>
+    <h2>Developed By DevSynexZ</h2>
+</div>
+   
+
+    <!-- React entry point -->
+    <script type="module" src="../src/main.jsx"></script>
+  </body>
+</html>
